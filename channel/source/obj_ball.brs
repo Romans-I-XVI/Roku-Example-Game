@@ -69,8 +69,8 @@ function obj_ball()
 				m.yspeed = abs(m.yspeed)*-1
 			end if
 
-			percentage = abs(640-m.x)/640
-			m.gameEngine.cameraSetZoom(1+percentage)
+			' percentage = abs(640-m.x)/640
+			' m.gameEngine.cameraSetZoom(1+percentage)
 
 		end function
 
@@ -78,7 +78,7 @@ function obj_ball()
 		object.onDestroy = function()
 			m.gameEngine.currentRoom.ball = invalid
 			m.computer.ball = invalid
-			m.gameEngine.cameraSetZoom(1) 
+			' m.gameEngine.cameraSetZoom(1) 
 			m.gameEngine.currentRoom.ball_spawn_timer.Mark()
 		end function
 	end function
