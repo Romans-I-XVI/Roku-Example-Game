@@ -17,11 +17,13 @@ function room_main()
 		room.onDrawBegin = function(frame)
 			frame.DrawRect(0, 0, 1280, 50, &hFFFFFFFF)
 			frame.DrawRect(0, 720-50, 1280, 50, &hFFFFFFFF)
-			frame.DrawText("Press OK To Play", 640-m.gameEngine.getFont("default").GetOneLineWidth("Press OK To Play", 1000)/2, 720/2, &hFFFFFFFF, m.gameEngine.getFont("default"))
+			if not m.game_started then
+				frame.DrawText("Press OK To Play", 640-m.gameEngine.getFont("default").GetOneLineWidth("Press OK To Play", 1000)/2, 720/2, &hFFFFFFFF, m.gameEngine.getFont("default"))
+			end if
 		end function
 
 		room.onButton = function(button)
-			if button = 6 then
+			if not m.game_started and button = 6 then
 				m.game_started = true
 			end if
 		end function

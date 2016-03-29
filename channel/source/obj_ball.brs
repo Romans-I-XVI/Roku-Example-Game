@@ -8,6 +8,9 @@ function obj_ball()
 			m.y = 360
 			m.dead = false
 			m.xspeed = (5.5*60)*m.direction
+	    	m.computer = m.gameEngine.getInstanceByName("computer")
+	    	m.computer.ball = m
+	    	m.player = m.gameEngine.getInstanceByName("player")
 			if rnd(2) = 1 then : m.yspeed = ((rnd(100)/20)*60)*-1 : else : m.yspeed = (rnd(100)/20)*60 : end if
 			m.addColliderRectangle("main_collider", -16, -16, 32, 32)
 			m.addImage(m.gameEngine.getBitmap("ball"), 0, 0, 16, 16)
@@ -45,8 +48,7 @@ function obj_ball()
 			if m.x-16 <= 50 then
 			    m.dead = true
 			    if m.x <= -100
-			    	computer = m.gameEngine.getAllInstances("computer")[0]
-			    	computer.score = computer.score+1
+			    	m.computer.score = m.computer.score+1
 			    	m.gameEngine.removeInstance(m.id)
 			    end if
 			end if
@@ -54,8 +56,7 @@ function obj_ball()
 			if m.x+16 >= 1280-50 then
 				m.dead = true
 			    if m.x >= 720+100
-			    	player = m.gameEngine.getAllInstances("player")[0]
-			    	player.score = player.score+1
+			    	m.player.score = m.player.score+1
 			    	m.gameEngine.removeInstance(m.id)
 			    end if
 			end if
@@ -73,6 +74,7 @@ function obj_ball()
 		' This function is called when I get destroyed
 		object.onDestroy = function()
 			m.gameEngine.currentRoom.ball = invalid
+			m.computer.ball = invalid
 			m.gameEngine.currentRoom.ball_spawn_timer.Mark()
 		end function
 	end function
