@@ -1,54 +1,29 @@
 function obj_player()
 	return function(object)
+	
 		object.onCreate = function()
-			m.x = m.gameEngine.Frame.GetWidth()/2
-			m.y = m.gameEngine.Frame.GetHeight()/2
-			m.depth = -100
-			m.radius = 32
-			m.addColliderCircle("main_collider", m.radius, 0, 0)
-			m.addAnimatedImage(m.gameEngine.getBitmap("ball"), 200, 200, 8, 500, m.radius/32, m.radius/32, 0, 0, 100, 100, &hFF0000FF)
-			m.gameEngine.cameraSetFollow(m)
-		end function
-
-		object.onCollision = function(collider, other_collider, other_object)
-			if other_object.name = "ball" then
-				m.gameEngine.removeInstance(other_object.id)
-				if m.gameEngine.currentRoom.name = "room_main" then
-					if m.gameEngine.currentRoom.balls.Count() = 0
-						m.gameEngine.changeRoom("room_example")
-					end if
-				end if
-			end if
+			m.x = 50
+			m.y = 360
+			m.addColliderRectangle("front", 15, -80, 1, 160)
+			m.addColliderRectangle("top", -16, -80, 32, 1)
+			m.addColliderRectangle("bottom", -16, 80-1, 32, 1)
+			m.addImage(m.gameEngine.getBitmap("paddle"), 0, 0, 16, 80)
 		end function
 
 		object.onButton = function(button)
-			if button = 5 or button = 1005 then
-				m.xspeed = m.xspeed + 10
-			end if
-			if button = 4 or button = 1004 then
-				m.xspeed = m.xspeed - 10
+			if button = 2 or button = 1002 then
+				if m.y > 50+80
+					m.y = m.y - 5
+				else
+					m.y = 50+80
+				end if
 			end if
 			if button = 3 or button = 1003 then
-				m.yspeed = m.yspeed + 10
-			end if
-			if button = 2 or button = 1002 then
-				m.yspeed = m.yspeed - 10
-			end if
-		end function
-
-		object.onUpdate = function(dt)
-			' Handle Movement
-			if m.x-m.radius <= 10 then
-			    m.xspeed = abs(m.xspeed)
-			end if
-			if m.x+m.radius >= m.gameEngine.frame.GetWidth()-10 then
-				m.xspeed = abs(m.xspeed)*-1
-			end if
-			if m.y-m.radius <= 10 then
-			    m.yspeed = abs(m.yspeed)
-			end if
-			if m.y+m.radius >= m.gameEngine.frame.GetHeight()-10 then
-				m.yspeed = abs(m.yspeed)*-1
+				if m.y < 720-50-80
+					m.y = m.y + 5
+				else
+					m.y = 720-50-80
+				end if
 			end if
 		end function
 
