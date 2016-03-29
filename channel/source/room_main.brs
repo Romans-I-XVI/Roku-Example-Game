@@ -3,7 +3,7 @@ function room_main()
 
 		room.onCreate = function()
 			m.game_started = false
-			m.ball_spawn_timer = CreateObject("roTimespan")\
+			m.ball_spawn_timer = CreateObject("roTimespan")
 			m.ball_direction = -1
 			m.ball = invalid
 		end function

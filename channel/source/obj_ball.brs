@@ -11,7 +11,7 @@ function obj_ball()
 	    	m.computer = m.gameEngine.getInstanceByName("computer")
 	    	m.computer.ball = m
 	    	m.player = m.gameEngine.getInstanceByName("player")
-			if rnd(2) = 1 then : m.yspeed = ((rnd(100)/20)*60)*-1 : else : m.yspeed = (rnd(100)/20)*60 : end if
+			if rnd(2) = 1 then : m.yspeed = 5*60*-1 : else : m.yspeed = 5*60 : end if
 			m.addColliderRectangle("main_collider", -16, -16, 32, 32)
 			m.addImage(m.gameEngine.getBitmap("ball"), 0, 0, 16, 16)
 			m.gameEngine.cameraSetFollow(m)
@@ -55,7 +55,7 @@ function obj_ball()
 
 			if m.x+16 >= 1280-50 then
 				m.dead = true
-			    if m.x >= 720+100
+			    if m.x >= 1280+100
 			    	m.player.score = m.player.score+1
 			    	m.gameEngine.removeInstance(m.id)
 			    end if
@@ -69,12 +69,16 @@ function obj_ball()
 				m.yspeed = abs(m.yspeed)*-1
 			end if
 
+			percentage = abs(640-m.x)/640
+			m.gameEngine.cameraSetZoom(1+percentage)
+
 		end function
 
 		' This function is called when I get destroyed
 		object.onDestroy = function()
 			m.gameEngine.currentRoom.ball = invalid
 			m.computer.ball = invalid
+			m.gameEngine.cameraSetZoom(1) 
 			m.gameEngine.currentRoom.ball_spawn_timer.Mark()
 		end function
 	end function
