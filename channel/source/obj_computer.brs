@@ -13,7 +13,7 @@ function obj_computer()
 		end function
 
 		object.onDrawEnd = function(frame)
-			frame.DrawText(m.score.ToStr(), 640-200, 100, &hFFFFFFFF, m.gameEngine.getFont("default"))
+			frame.DrawText(m.score.ToStr(), 640+200, 100, &hFFFFFFFF, m.gameEngine.getFont("default"))
 		end function
 
 		object.onUpdate = function(dt)
