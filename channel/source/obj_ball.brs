@@ -48,6 +48,7 @@ function obj_ball()
 			if m.x-16 <= 50 then
 			    m.dead = true
 			    if m.x <= -100
+			    	m.gameEngine.currentRoom.ball_direction = 1
 			    	m.computer.score = m.computer.score+1
 			    	m.gameEngine.removeInstance(m.id)
 			    end if
@@ -56,6 +57,7 @@ function obj_ball()
 			if m.x+16 >= 1280-50 then
 				m.dead = true
 			    if m.x >= 1280+100
+			    	m.gameEngine.currentRoom.ball_direction = -1
 			    	m.player.score = m.player.score+1
 			    	m.gameEngine.removeInstance(m.id)
 			    end if
