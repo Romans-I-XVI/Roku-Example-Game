@@ -14,7 +14,7 @@ function obj_ball()
 			if rnd(2) = 1 then : m.yspeed = 5*60*-1 : else : m.yspeed = 5*60 : end if
 			m.addColliderRectangle("main_collider", -16, -16, 32, 32)
 			m.addImage(m.gameEngine.getBitmap("ball"), 0, 0, 16, 16)
-			m.gameEngine.cameraSetFollow(m)
+			m.gameEngine.cameraSetFollow(m.id)
 		end function
 
 
@@ -70,7 +70,7 @@ function obj_ball()
 			end if
 
 			' percentage = abs(640-m.x)/640
-			' m.gameEngine.cameraSetZoom(1+percentage)
+			' m.gameEngine.cameraSetZoom(1+percentage/2)
 
 		end function
 

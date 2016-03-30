@@ -26,11 +26,11 @@ function obj_player()
 
 		object.onButton = function(button)
 			if button = 2 then
-				m.yspeed = -5
+				m.yspeed = -5*60
 			else if button = 102 then
 				m.yspeed = 0
 			else if button = 3 then
-				m.yspeed = 5
+				m.yspeed = 5*60
 			else if button = 103
 				m.yspeed = 0
 			end if
