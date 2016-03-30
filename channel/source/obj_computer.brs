@@ -20,13 +20,13 @@ function obj_computer()
 			if m.ball <> invalid and m.ball.xspeed > 0 and m.ball.x < m.x then
 				if m.ball.y < m.y-20 then
 					if m.y > 50+80 then
-						m.y = m.y-3*60*dt
+						m.y = m.y-3.5*60*dt
 					else
 						m.y = 50+80
 					end if
 				else if m.ball.y > m.y+20 then
 					if m.y < 720-50-80
-						m.y = m.y+3*60*dt
+						m.y = m.y+3.5*60*dt
 					else 
 						m.y = 720-50-80
 					end if
