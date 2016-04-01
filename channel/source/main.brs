@@ -2,7 +2,7 @@
 
 sub Main()
 	' ------- These two lines are required --------
-	gameEngine = gameEngine_init(1280, 720, false) ' This initializes the game engine
+	gameEngine = gameEngine_init(1280, 720, true) ' This initializes the game engine
 	gameEngine.loadBitmap("ball", "pkg:/sprites/ball.png")
 	gameEngine.loadBitmap("paddle", "pkg:/sprites/paddle.png")
 	gameEngine.defineRoom("room_main", room_main())
@@ -10,8 +10,8 @@ sub Main()
 	gameEngine.defineObject("player", obj_player())
 	gameEngine.defineObject("computer", obj_computer())
 	gameEngine.changeRoom("room_main")
-	gameEngine.newInstance("player")
-	gameEngine.newInstance("computer")
+	gameEngine.createInstance("player")
+	gameEngine.createInstance("computer")
 
 	' You should really only need gameEngine.Update() in your while loop. 
 	' Everything else should be attached to objects.

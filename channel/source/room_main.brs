@@ -10,7 +10,7 @@ function room_main()
 
 		room.onUpdate = function(dt)
 			if m.game_started and m.ball = invalid and m.ball_spawn_timer.TotalMilliseconds() > 1000
-				m.ball = m.gameEngine.newInstance("ball", {direction: m.ball_direction})
+				m.ball = m.gameEngine.createInstance("ball", {direction: m.ball_direction})
 			end if
 		end function
 
