@@ -13,7 +13,7 @@ function obj_ball()
 	    	m.player = m.gameEngine.getInstanceByName("player")
 			if rnd(2) = 1 then : m.yspeed = 5*60*-1 : else : m.yspeed = 5*60 : end if
 			m.addColliderRectangle("main_collider", -16, -16, 32, 32)
-			m.addImage(m.gameEngine.getBitmap("ball"), 0, 0, 16, 16)
+			m.addImage(m.gameEngine.getBitmap("ball"),{color: &hffffff, origin_x: 16, origin_y: 16, alpha: 0})
 		end function
 
 
@@ -39,10 +39,18 @@ function obj_ball()
 
 		end function
 
+		object.onDrawEnd = function(frame)
+			' m.gameEngine.drawcolliders(m)
+		end function
+
 
 		' This is run on every frame
 		object.onUpdate = function(dt)
 			' Handle Movement
+			if m.images[0].alpha < 255 then
+				m.images[0].alpha = m.images[0].alpha+3
+			end if
+
 
 			if m.x-16 <= 50 then
 			    m.dead = true

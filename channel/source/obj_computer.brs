@@ -9,7 +9,7 @@ function obj_computer()
 			m.addColliderRectangle("front", -16, -80, 1, 160)
 			m.addColliderRectangle("top", -16, -80, 32, 1)
 			m.addColliderRectangle("bottom", -16, 80-1, 32, 1)
-			m.addImage(m.gameEngine.getBitmap("paddle"), 0, 0, 16, 80)
+			m.addImage(m.gameEngine.getBitmap("paddle"), {origin_x: 16, origin_y: 80})
 		end function
 
 		object.onDrawEnd = function(frame)
