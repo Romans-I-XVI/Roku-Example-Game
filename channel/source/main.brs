@@ -1,5 +1,3 @@
-' Library "gameEngine.brs"
-
 sub Main()
 	' ------- These two lines are required --------
 	gameEngine = gameEngine_init(1280, 720, true) ' This initializes the game engine

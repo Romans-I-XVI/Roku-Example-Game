@@ -1,7 +1,7 @@
 function obj_player()
 	return function(object)
 	
-		object.onCreate = function()
+		object.onCreate = function(args)
 			m.hue = 0
 			m.x = 50
 			m.y = 360

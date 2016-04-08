@@ -3,32 +3,33 @@ function obj_ball()
 
 		' ################ What we are doing here is modifying the empty object with our ball specific function overrides ###################
 
-		object.onCreate = function()
+		object.onCreate = function(args)
+			m.Append(args)
 			m.x = 640
 			m.y = 360
 			m.dead = false
 			m.xspeed = (5.5*60)*m.direction
-	    	m.computer = m.gameEngine.getInstanceByName("computer")
+	    	m.computer = m.gameEngine.getInstanceByType("computer")
 	    	m.computer.ball = m
-	    	m.player = m.gameEngine.getInstanceByName("player")
+	    	m.player = m.gameEngine.getInstanceByType("player")
 			if rnd(2) = 1 then : m.yspeed = 5*60*-1 : else : m.yspeed = 5*60 : end if
 			m.addColliderRectangle("main_collider", -16, -16, 32, 32)
-			m.addImage(m.gameEngine.getBitmap("ball"),{color: &hffffff, origin_x: 16, origin_y: 16, alpha: 0})
+			m.addImage(m.gameEngine.getBitmap("ball"), {color: &hffffff, origin_x: 16, origin_y: 16, alpha: 0})
 		end function
 
 
 		' Detect collision with other object
 		object.onCollision = function(collider, other_collider, other_object)
 
-			if not m.dead and other_object.name = "player" and other_collider = "front" then
+			if not m.dead and other_object.type = "player" and other_collider = "front" then
 				m.xspeed = Abs(m.xspeed)
 			end if
 
-			if not m.dead and other_object.name = "computer" and other_collider = "front" then
+			if not m.dead and other_object.type = "computer" and other_collider = "front" then
 				m.xspeed = Abs(m.xspeed)*-1
 			end if
 
-			if (other_object.name = "player" or other_object.name = "computer") then
+			if (other_object.type = "player" or other_object.type = "computer") then
 				if other_collider = "top" then
 					m.yspeed = Abs(m.yspeed)*-1
 				end if
@@ -39,10 +40,6 @@ function obj_ball()
 
 		end function
 
-		object.onDrawEnd = function(frame)
-			' m.gameEngine.drawcolliders(m)
-		end function
-
 
 		' This is run on every frame
 		object.onUpdate = function(dt)
@@ -50,7 +47,6 @@ function obj_ball()
 			if m.images[0].alpha < 255 then
 				m.images[0].alpha = m.images[0].alpha+3
 			end if
-
 
 			if m.x-16 <= 50 then
 			    m.dead = true
@@ -86,5 +82,7 @@ function obj_ball()
 			m.computer.ball = invalid
 			m.gameEngine.currentRoom.ball_spawn_timer.Mark()
 		end function
+
 	end function
+
 end function

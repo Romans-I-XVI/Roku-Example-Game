@@ -1,7 +1,7 @@
 function obj_computer()
 	return function(object)
 
-		object.onCreate = function()
+		object.onCreate = function(args)
 			m.ball = invalid
 			m.x = 1280-50
 			m.y = 360
