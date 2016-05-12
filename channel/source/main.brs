@@ -1,12 +1,11 @@
 sub Main()
-	' ------- These two lines are required --------
 	gameEngine = gameEngine_init(1280, 720, true) ' This initializes the game engine
 	gameEngine.loadBitmap("ball", "pkg:/sprites/ball.png")
 	gameEngine.loadBitmap("paddle", "pkg:/sprites/paddle.png")
-	gameEngine.defineRoom("room_main", room_main())
-	gameEngine.defineObject("ball", obj_ball())
-	gameEngine.defineObject("player", obj_player())
-	gameEngine.defineObject("computer", obj_computer())
+	gameEngine.defineRoom("room_main", room_main)
+	gameEngine.defineObject("ball", obj_ball)
+	gameEngine.defineObject("player", obj_player)
+	gameEngine.defineObject("computer", obj_computer)
 	gameEngine.changeRoom("room_main")
 	gameEngine.createInstance("player")
 	gameEngine.createInstance("computer")
