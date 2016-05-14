@@ -8,8 +8,5 @@ sub Main()
 	game.defineObject("computer", obj_computer)
 	game.defineObject("pause_handler", obj_pause_handler)
 	game.changeRoom("room_main")
-	game.createInstance("pause_handler")
-	game.createInstance("player")
-	game.createInstance("computer")
 	game.Play()
 end sub
