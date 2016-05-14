@@ -9,7 +9,7 @@ function room_main(room)
 
 	room.onUpdate = function(dt)
 		if m.game_started and m.ball = invalid and m.ball_spawn_timer.TotalMilliseconds() > 1000
-			m.ball = m.gameEngine.createInstance("ball", {direction: m.ball_direction})
+			m.ball = m.game.createInstance("ball", {direction: m.ball_direction})
 		end if
 	end function
 
@@ -17,7 +17,7 @@ function room_main(room)
 		canvas.DrawRect(0, 0, 1280, 50, &hFFFFFFFF)
 		canvas.DrawRect(0, 720-50, 1280, 50, &hFFFFFFFF)
 		if not m.game_started then
-			DrawText(canvas, "Press OK To Play", canvas.GetWidth()/2, canvas.GetHeight()/2-20, m.gameEngine.getFont("default"), "center")
+			DrawText(canvas, "Press OK To Play", canvas.GetWidth()/2, canvas.GetHeight()/2-20, m.game.getFont("default"), "center")
 		end if
 	end function
 

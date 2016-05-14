@@ -8,11 +8,11 @@ function obj_computer(object)
 		m.addColliderRectangle("front", -16, -80, 1, 160)
 		m.addColliderRectangle("top", -16, -80, 32, 1)
 		m.addColliderRectangle("bottom", -16, 80-1, 32, 1)
-		m.addImage(m.gameEngine.getBitmap("paddle"), {origin_x: 16, origin_y: 80})
+		m.addImage(m.game.getBitmap("paddle"), {origin_x: 16, origin_y: 80})
 	end function
 
 	object.onDrawEnd = function(canvas)
-		DrawText(canvas, m.score.ToStr(), 640+200, 100, m.gameEngine.getFont("default"))
+		DrawText(canvas, m.score.ToStr(), 640+200, 100, m.game.getFont("default"))
 	end function
 
 	object.onUpdate = function(dt)

@@ -1,18 +1,15 @@
 sub Main()
-	gameEngine = gameEngine_init(1280, 720, true) ' This initializes the game engine
-	gameEngine.loadBitmap("ball", "pkg:/sprites/ball.png")
-	gameEngine.loadBitmap("paddle", "pkg:/sprites/paddle.png")
-	gameEngine.defineRoom("room_main", room_main)
-	gameEngine.defineObject("ball", obj_ball)
-	gameEngine.defineObject("player", obj_player)
-	gameEngine.defineObject("computer", obj_computer)
-	gameEngine.changeRoom("room_main")
-	gameEngine.createInstance("player")
-	gameEngine.createInstance("computer")
-
-	' You should really only need gameEngine.Update() in your while loop. 
-	' Everything else should be attached to objects.
-	while true
-		gameEngine.Update() ' This must be in the main while loop, it's what makes the game engine tick.
-	end while
+	game = new_game(1280, 720, true) ' This initializes the game engine
+	game.loadBitmap("ball", "pkg:/sprites/ball.png")
+	game.loadBitmap("paddle", "pkg:/sprites/paddle.png")
+	game.defineRoom("room_main", room_main)
+	game.defineObject("ball", obj_ball)
+	game.defineObject("player", obj_player)
+	game.defineObject("computer", obj_computer)
+	game.defineObject("pause_handler", obj_pause_handler)
+	game.changeRoom("room_main")
+	game.createInstance("pause_handler")
+	game.createInstance("player")
+	game.createInstance("computer")
+	game.Play()
 end sub

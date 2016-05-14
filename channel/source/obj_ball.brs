@@ -8,12 +8,12 @@ function obj_ball(object)
 		m.y = 360
 		m.dead = false
 		m.xspeed = (5.5*60)*m.direction
-    	m.computer = m.gameEngine.getInstanceByName("computer")
+    	m.computer = m.game.getInstanceByName("computer")
     	m.computer.ball = m
-    	m.player = m.gameEngine.getInstanceByName("player")
+    	m.player = m.game.getInstanceByName("player")
 		if rnd(2) = 1 then : m.yspeed = 5*60*-1 : else : m.yspeed = 5*60 : end if
 		m.addColliderRectangle("main_collider", -16, -16, 32, 32)
-		m.addImage(m.gameEngine.getBitmap("ball"), {color: &hffffff, origin_x: 16, origin_y: 16, alpha: 0})
+		m.addImage(m.game.getBitmap("ball"), {color: &hffffff, origin_x: 16, origin_y: 16, alpha: 0})
 	end function
 
 
@@ -42,7 +42,7 @@ function obj_ball(object)
 
 	' This is run on every frame
 	object.onUpdate = function(dt)
-		room = m.gameEngine.getRoom()
+		room = m.game.getRoom()
 		' Handle Movement
 		if m.images[0].alpha < 255 then
 			m.images[0].alpha = m.images[0].alpha+3
@@ -53,7 +53,7 @@ function obj_ball(object)
 		    if m.x <= -100
 		    	room.ball_direction = 1
 		    	m.computer.score = m.computer.score+1
-		    	m.gameEngine.destroyInstance(m)
+		    	m.game.destroyInstance(m)
 		    	return void
 		    end if
 		end if
@@ -63,7 +63,7 @@ function obj_ball(object)
 		    if m.x >= 1280+100
 		    	room.ball_direction = -1
 		    	m.player.score = m.player.score+1
-		    	m.gameEngine.destroyInstance(m)
+		    	m.game.destroyInstance(m)
 		    	return void
 		    end if
 		end if
@@ -80,7 +80,7 @@ function obj_ball(object)
 
 	' This function is called when I get destroyed
 	object.onDestroy = function()
-		room = m.gameEngine.getRoom()
+		room = m.game.getRoom()
 		room.ball = invalid
 		m.computer.ball = invalid
 		room.ball_spawn_timer.Mark()
