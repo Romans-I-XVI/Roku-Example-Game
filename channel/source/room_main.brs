@@ -22,6 +22,9 @@ function room_main(room)
 	end function
 
 	room.onButton = function(button)
+		if button = 0 then
+			m.game.End()
+		end if
 		if not m.game_started and button = 6 then
 			m.game_started = true
 		end if
