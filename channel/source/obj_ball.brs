@@ -44,8 +44,9 @@ function obj_ball(object)
 	object.onUpdate = function(dt)
 		room = m.game.getRoom()
 		' Handle Movement
-		if m.images["0"].alpha < 255 then
-			m.images["0"].alpha = m.images["0"].alpha+3
+		image = m.getImage()
+		if image.alpha < 255 then
+			image.alpha = image.alpha+3
 		end if
 
 		if m.x-16 <= 50 then
