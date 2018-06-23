@@ -1,0 +1,3 @@
+[submodule "channel/source/Roku-gameEngine"]
+	path = channel/source/Roku-gameEngine
+	url = https://github.com/Romans-I-XVI/Roku-gameEngine.git
