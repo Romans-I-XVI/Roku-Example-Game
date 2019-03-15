@@ -2,7 +2,6 @@ function obj_computer(object)
 
 	object.x = 1280 - 50
 	object.y = invalid
-	object.score = 0
 	object.width = invalid
 	object.height = invalid
 	object.bounds = {top: 50, bottom: 720 - 50}
@@ -17,10 +16,6 @@ function obj_computer(object)
 		m.addColliderRectangle("top", -m.width / 2, -m.height / 2, m.width, 1)
 		m.addColliderRectangle("bottom", -m.width / 2, m.height / 2 - 1, m.width, 1)
 		m.addImage(m.game.getBitmap("paddle"), {origin_x: m.width / 2, origin_y: m.height / 2})
-	end function
-
-	object.onDrawEnd = function(canvas)
-		DrawText(canvas, m.score.ToStr(), 640+200, 100, m.game.getFont("default"))
 	end function
 
 	object.onUpdate = function(dt)

@@ -52,9 +52,9 @@ function obj_ball(object)
 		    m.dead = true
 		    if m.x <= -100
 		    	room.ball_direction = 1
-		    	m.computer.score = m.computer.score+1
+				m.game.postGameEvent("score", {team: 1})
 		    	m.game.destroyInstance(m)
-		    	return void
+		    	return void ' If an entity destroys itself it must return immediately as all internal variables are now invalid
 		    end if
 		end if
 
@@ -62,9 +62,9 @@ function obj_ball(object)
 			m.dead = true
 		    if m.x >= 1280+100
 		    	room.ball_direction = -1
-		    	m.player.score = m.player.score+1
+				m.game.postGameEvent("score", {team: 0})
 		    	m.game.destroyInstance(m)
-		    	return void
+		    	return void ' If an entity destroys itself it must return immediately as all internal variables are now invalid
 		    end if
 		end if
 

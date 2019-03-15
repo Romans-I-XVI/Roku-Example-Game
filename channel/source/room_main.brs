@@ -2,6 +2,7 @@ function room_main(room)
 
 	room.onCreate = function(args)
 		m.game.createInstance("pause_handler")
+		m.game.createInstance("score_handler")
 		m.game.createInstance("player")
 		m.game.createInstance("computer")
 		m.game_started = false

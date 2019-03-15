@@ -7,6 +7,7 @@ sub Main()
 	game.defineObject("player", obj_player)
 	game.defineObject("computer", obj_computer)
 	game.defineObject("pause_handler", obj_pause_handler)
+	game.defineObject("score_handler", obj_score_handler)
 	game.changeRoom("room_main")
 	game.Play()
 end sub
