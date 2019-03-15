@@ -102,4 +102,8 @@ function obj_ball(object)
 		end if
 	end function
 
+	object.onDestroy = function()
+		m.game.playSound("score", 50)
+	end function
+
 end function
