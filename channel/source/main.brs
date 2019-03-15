@@ -2,6 +2,7 @@ sub Main()
 	game = new_game(1280, 720, false, true) ' This initializes the game engine
 	game.loadBitmap("ball", "pkg:/sprites/ball.png")
 	game.loadBitmap("paddle", "pkg:/sprites/paddle.png")
+	game.loadSound("hit", "pkg:/sounds/hit.wav")
 	game.defineRoom("room_main", room_main)
 	game.defineObject("ball", obj_ball)
 	game.defineObject("player", obj_player)

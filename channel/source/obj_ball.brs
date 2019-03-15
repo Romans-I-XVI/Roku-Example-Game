@@ -1,54 +1,68 @@
 function obj_ball(object)
 
-	' ################ What we are doing here is modifying the empty object with our ball specific function overrides ###################
+	object.direction = invalid
+	object.hit_frequency_timer = CreateObject("roTimeSpan")
+	object.dead = false
+	object.bounds = {top: 50, bottom: 720 - 50}
 
 	object.onCreate = function(args)
-		m.Append(args)
-		m.x = 640
-		m.y = 360
-		m.dead = false
-		m.xspeed = (5.5*60)*m.direction
-    	m.computer = m.game.getInstanceByName("computer")
-    	m.player = m.game.getInstanceByName("player")
-		if rnd(2) = 1 then : m.yspeed = 5*60*-1 : else : m.yspeed = 5*60 : end if
-		m.addColliderRectangle("main_collider", -16, -16, 32, 32)
-		m.addImage(m.game.getBitmap("ball"), {color: &hffffff, origin_x: 16, origin_y: 16, alpha: 0})
+		m.direction = args.direction
+		m.x = 1280 / 2
+		m.y = 720 / 2
+		m.xspeed = (5.5 * 60) * m.direction
+		m.yspeed = 5 * 60
+		if rnd(2) = 1
+			m.yspeed *= -1
+		end if
+
+		bm_ball = m.game.getBitmap("ball")
+		m.addColliderRectangle("main_collider", -bm_ball.GetWidth() / 2, -bm_ball.GetHeight() / 2, bm_ball.GetWidth(), bm_ball.GetHeight())
+		m.addImage(m.game.getBitmap("ball"), {color: &hffffff, origin_x: bm_ball.GetWidth() / 2, origin_y: bm_ball.GetHeight() / 2, alpha: 0})
 	end function
 
+	object.onCollision = function(collider_name as String, other_collider_name as String, other_instance as Object)
+		need_to_play_hit_sound = false
 
-	' Detect collision with other object
-	object.onCollision = function(collider, other_collider, other_object)
-
-		if not m.dead and other_object.name = "player" and other_collider = "front" then
+		' If colliding with the front of the player paddle
+		if not m.dead and other_instance.name = "player" and other_collider_name = "front"
 			m.xspeed = Abs(m.xspeed)
+			need_to_play_hit_sound = true
 		end if
 
-		if not m.dead and other_object.name = "computer" and other_collider = "front" then
-			m.xspeed = Abs(m.xspeed)*-1
+		' If colliding with the front of the computer paddle
+		if not m.dead and other_instance.name = "computer" and other_collider_name = "front"
+			m.xspeed = Abs(m.xspeed) * -1
+			need_to_play_hit_sound = true
 		end if
 
-		if (other_object.name = "player" or other_object.name = "computer") then
-			if other_collider = "top" then
-				m.yspeed = Abs(m.yspeed)*-1
+		' If colliding with the front or bottom of the either paddle
+		if (other_instance.name = "player" or other_instance.name = "computer")
+			if other_collider_name = "top" then
+				m.yspeed = Abs(m.yspeed) * -1
+				need_to_play_hit_sound = true
 			end if
-			if other_collider = "bottom" then
+			if other_collider_name = "bottom" then
 				m.yspeed = Abs(m.yspeed)
+				need_to_play_hit_sound = true
 			end if
 		end if
 
+		if need_to_play_hit_sound
+			m.PlayHitSound()
+		end if
 	end function
 
-
-	' This is run on every frame
-	object.onUpdate = function(dt)
-		room = m.game.getRoom()
-		' Handle Movement
+	object.onUpdate = function(dt as Float)
 		image = m.getImage()
+		collider = m.getCollider("main_collider")
+
+		' Increase alpha until full if not at full
 		if image.alpha < 255 then
-			image.alpha = image.alpha+3
+			image.alpha += 3
 		end if
 
-		if m.x-16 <= 50 then
+		' If the left side of the ball is past the center of the player paddle position
+		if m.x - collider.width / 2 <= m.game.getInstanceByName("player").x
 		    m.dead = true
 		    if m.x <= -100
 				m.game.postGameEvent("score", {team: 1})
@@ -57,23 +71,35 @@ function obj_ball(object)
 		    end if
 		end if
 
-		if m.x+16 >= 1280-50 then
+		' If the right side of the ball is past the center of the computer paddle
+		if m.x + collider.width / 2 >= m.game.getInstanceByName("computer").x
 			m.dead = true
-		    if m.x >= 1280+100
+		    if m.x >= 1280 + 100
 				m.game.postGameEvent("score", {team: 0})
 		    	m.game.destroyInstance(m)
 		    	return void ' If an entity destroys itself it must return immediately as all internal variables are now invalid
 		    end if
 		end if
 
-		if m.y-16 <= 50 then
+		' If the ball is hitting the top bounds
+		if m.y - collider.height / 2 <= m.bounds.top
 		    m.yspeed = abs(m.yspeed)
+			m.PlayHitSound()
 		end if
 
-		if m.y+16 >= 720-50 then
-			m.yspeed = abs(m.yspeed)*-1
+		' If the ball is hitting the bottom bounds
+		if m.y + collider.height / 2 >= m.bounds.bottom
+			m.yspeed = abs(m.yspeed) * -1
+			m.PlayHitSound()
 		end if
+	end function
 
+	object.PlayHitSound = function()
+		' Play the hit sound if ball is on screen and didn't already play within the last 100ms
+		if m.x > 0 and m.x < m.game.getCanvas().GetWidth() and m.hit_frequency_timer.TotalMilliseconds() > 100
+			m.game.playSound("hit", 50)
+			m.hit_frequency_timer.Mark()
+		end if
 	end function
 
 end function
