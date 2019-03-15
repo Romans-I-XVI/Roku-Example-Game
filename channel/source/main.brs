@@ -1,5 +1,5 @@
 sub Main()
-	game = new_game(1280, 720, true) ' This initializes the game engine
+	game = new_game(1280, 720, true, true) ' This initializes the game engine
 	game.loadBitmap("ball", "pkg:/sprites/ball.png")
 	game.loadBitmap("paddle", "pkg:/sprites/paddle.png")
 	game.defineRoom("room_main", room_main)
