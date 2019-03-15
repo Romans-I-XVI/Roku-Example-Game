@@ -51,7 +51,6 @@ function obj_ball(object)
 		if m.x-16 <= 50 then
 		    m.dead = true
 		    if m.x <= -100
-		    	room.ball_direction = 1
 				m.game.postGameEvent("score", {team: 1})
 		    	m.game.destroyInstance(m)
 		    	return void ' If an entity destroys itself it must return immediately as all internal variables are now invalid
@@ -61,7 +60,6 @@ function obj_ball(object)
 		if m.x+16 >= 1280-50 then
 			m.dead = true
 		    if m.x >= 1280+100
-		    	room.ball_direction = -1
 				m.game.postGameEvent("score", {team: 0})
 		    	m.game.destroyInstance(m)
 		    	return void ' If an entity destroys itself it must return immediately as all internal variables are now invalid
@@ -76,14 +74,6 @@ function obj_ball(object)
 			m.yspeed = abs(m.yspeed)*-1
 		end if
 
-	end function
-
-	' This function is called when I get destroyed
-	object.onDestroy = function()
-		room = m.game.getRoom()
-		room.ball = invalid
-		m.computer.ball = invalid
-		room.ball_spawn_timer.Mark()
 	end function
 
 end function
