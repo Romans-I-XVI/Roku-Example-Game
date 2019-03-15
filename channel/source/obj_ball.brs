@@ -9,7 +9,6 @@ function obj_ball(object)
 		m.dead = false
 		m.xspeed = (5.5*60)*m.direction
     	m.computer = m.game.getInstanceByName("computer")
-    	m.computer.ball = m
     	m.player = m.game.getInstanceByName("player")
 		if rnd(2) = 1 then : m.yspeed = 5*60*-1 : else : m.yspeed = 5*60 : end if
 		m.addColliderRectangle("main_collider", -16, -16, 32, 32)
