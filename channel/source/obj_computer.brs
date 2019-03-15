@@ -1,4 +1,4 @@
-function obj_computer(object)	
+function obj_computer(object)
 
 	object.x = 1280 - 50
 	object.y = invalid
@@ -32,7 +32,7 @@ function obj_computer(object)
 			else if ball.y > m.y + 20
 				if m.y < m.bounds.bottom - m.height / 2
 					m.y += 3.5 * 60 * dt
-				else 
+				else
 					m.y = m.bounds.bottom - m.height / 2
 				end if
 			end if

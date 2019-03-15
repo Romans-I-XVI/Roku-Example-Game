@@ -34,7 +34,7 @@ function room_main(object)
 		end if
 	end function
 
-	object.onGameEvent = function(event as String, data as Object)
+	object.onGameEvent = function(event as string, data as object)
 		if event = "score"
 			if data.team = 0
 				m.ball_direction = -1

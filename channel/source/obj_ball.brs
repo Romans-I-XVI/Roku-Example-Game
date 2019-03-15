@@ -20,7 +20,7 @@ function obj_ball(object)
 		m.addImage(m.game.getBitmap("ball"), {color: &hffffff, origin_x: bm_ball.GetWidth() / 2, origin_y: bm_ball.GetHeight() / 2, alpha: 0})
 	end function
 
-	object.onCollision = function(collider_name as String, other_collider_name as String, other_instance as Object)
+	object.onCollision = function(collider_name as string, other_collider_name as string, other_instance as object)
 		need_to_play_hit_sound = false
 
 		' If colliding with the front of the player paddle
@@ -52,7 +52,7 @@ function obj_ball(object)
 		end if
 	end function
 
-	object.onUpdate = function(dt as Float)
+	object.onUpdate = function(dt as float)
 		image = m.getImage()
 		collider = m.getCollider("main_collider")
 
@@ -63,27 +63,27 @@ function obj_ball(object)
 
 		' If the left side of the ball is past the center of the player paddle position
 		if m.x - collider.width / 2 <= m.game.getInstanceByName("player").x
-		    m.dead = true
-		    if m.x <= -100
+			m.dead = true
+			if m.x <= -100
 				m.game.postGameEvent("score", {team: 1})
-		    	m.game.destroyInstance(m)
-		    	return void ' If an entity destroys itself it must return immediately as all internal variables are now invalid
-		    end if
+				m.game.destroyInstance(m)
+				return void ' If an entity destroys itself it must return immediately as all internal variables are now invalid
+			end if
 		end if
 
 		' If the right side of the ball is past the center of the computer paddle
 		if m.x + collider.width / 2 >= m.game.getInstanceByName("computer").x
 			m.dead = true
-		    if m.x >= 1280 + 100
+			if m.x >= 1280 + 100
 				m.game.postGameEvent("score", {team: 0})
-		    	m.game.destroyInstance(m)
-		    	return void ' If an entity destroys itself it must return immediately as all internal variables are now invalid
-		    end if
+				m.game.destroyInstance(m)
+				return void ' If an entity destroys itself it must return immediately as all internal variables are now invalid
+			end if
 		end if
 
 		' If the ball is hitting the top bounds
 		if m.y - collider.height / 2 <= m.bounds.top
-		    m.yspeed = abs(m.yspeed)
+			m.yspeed = abs(m.yspeed)
 			m.PlayHitSound()
 		end if
 
