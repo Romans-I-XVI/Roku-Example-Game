@@ -1,7 +1,8 @@
-function room_main(room)
+function room_main(object)
 
-	room.onCreate = function(args)
+	object.onCreate = function(args)
 		m.game.createInstance("pause_handler")
+		m.game.createInstance("score_handler")
 		m.game.createInstance("player")
 		m.game.createInstance("computer")
 		m.game_started = false
@@ -10,13 +11,13 @@ function room_main(room)
 		m.ball = invalid
 	end function
 
-	room.onUpdate = function(dt)
+	object.onUpdate = function(dt)
 		if m.game_started and m.ball = invalid and m.ball_spawn_timer.TotalMilliseconds() > 1000
 			m.ball = m.game.createInstance("ball", {direction: m.ball_direction})
 		end if
 	end function
 
-	room.onDrawBegin = function(canvas)
+	object.onDrawBegin = function(canvas)
 		canvas.DrawRect(0, 0, 1280, 50, &hFFFFFFFF)
 		canvas.DrawRect(0, 720-50, 1280, 50, &hFFFFFFFF)
 		if not m.game_started then
@@ -24,12 +25,24 @@ function room_main(room)
 		end if
 	end function
 
-	room.onButton = function(button)
+	object.onButton = function(button)
 		if button = 0 then
 			m.game.End()
 		end if
 		if not m.game_started and button = 6 then
 			m.game_started = true
+		end if
+	end function
+
+	object.onGameEvent = function(event as string, data as object)
+		if event = "score"
+			if data.team = 0
+				m.ball_direction = -1
+			else
+				m.ball_direction = 1
+			end if
+			m.ball = invalid
+			m.ball_spawn_timer.Mark()
 		end if
 	end function
 
