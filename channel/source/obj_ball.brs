@@ -9,15 +9,17 @@ function obj_ball(object)
 		m.direction = args.direction
 		m.x = 1280 / 2
 		m.y = 720 / 2
-		m.xspeed = (5.5 * 60) * m.direction
-		m.yspeed = 5 * 60
+		m.xspeed = 5.5 * m.direction
+		m.yspeed = 5
 		if rnd(2) = 1
 			m.yspeed *= -1
 		end if
 
 		bm_ball = m.game.getBitmap("ball")
+		region = CreateObject("roRegion", bm_ball, 0, 0, bm_ball.GetWidth(), bm_ball.GetHeight())
+		region.ifRegion.SetPretranslation(-bm_ball.GetWidth() / 2, -bm_ball.GetHeight() / 2)
+		m.addImage("main", region, {color: &hffffff, alpha: 0})
 		m.addColliderRectangle("main_collider", -bm_ball.GetWidth() / 2, -bm_ball.GetHeight() / 2, bm_ball.GetWidth(), bm_ball.GetHeight())
-		m.addImage(m.game.getBitmap("ball"), {color: &hffffff, origin_x: bm_ball.GetWidth() / 2, origin_y: bm_ball.GetHeight() / 2, alpha: 0})
 	end function
 
 	object.onCollision = function(collider_name as string, other_collider_name as string, other_instance as object)
@@ -53,7 +55,7 @@ function obj_ball(object)
 	end function
 
 	object.onUpdate = function(dt as float)
-		image = m.getImage()
+		image = m.getImage("main")
 		collider = m.getCollider("main_collider")
 
 		' Increase alpha until full if not at full

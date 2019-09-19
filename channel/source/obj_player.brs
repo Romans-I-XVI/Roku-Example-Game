@@ -15,7 +15,10 @@ function obj_player(object)
 		m.addColliderRectangle("front", m.width / 2 - 1, -m.height / 2, 1, m.height)
 		m.addColliderRectangle("top", -m.width / 2, -m.height / 2, m.width, 1)
 		m.addColliderRectangle("bottom", -m.width / 2, m.height / 2 - 1, m.width, 1)
-		m.addImage(m.game.getBitmap("paddle"), {origin_x: m.width / 2, origin_y: m.height / 2})
+
+		region = CreateObject("roRegion", bm_paddle, 0, 0, m.width, m.height)
+		region.SetPretranslation(-m.width / 2, -m.height / 2)
+		m.addImage("main", region)
 	end function
 
 	object.onUpdate = function(dt)
@@ -31,11 +34,11 @@ function obj_player(object)
 
 	object.onButton = function(code as integer)
 		if code = 2 ' Up Pressed
-			m.yspeed = -3.5 * 60
+			m.yspeed = -3.5
 		else if code = 102 ' Up Released
 			m.yspeed = 0
 		else if code = 3 ' Down Pressed
-			m.yspeed = 3.5 * 60
+			m.yspeed = 3.5
 		else if code = 103 ' Down Released
 			m.yspeed = 0
 		end if
