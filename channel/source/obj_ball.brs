@@ -17,7 +17,7 @@ function obj_ball(object)
 
 		bm_ball = m.game.getBitmap("ball")
 		region = CreateObject("roRegion", bm_ball, 0, 0, bm_ball.GetWidth(), bm_ball.GetHeight())
-		region.ifRegion.SetPretranslation(-bm_ball.GetWidth() / 2, -bm_ball.GetHeight() / 2)
+		region.SetPretranslation(-bm_ball.GetWidth() / 2, -bm_ball.GetHeight() / 2)
 		m.addImage("main", region, {color: &hffffff, alpha: 0})
 		m.addColliderRectangle("main_collider", -bm_ball.GetWidth() / 2, -bm_ball.GetHeight() / 2, bm_ball.GetWidth(), bm_ball.GetHeight())
 	end function
