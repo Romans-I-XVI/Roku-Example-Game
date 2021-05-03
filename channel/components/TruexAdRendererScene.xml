@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright (c) 2021 true[X], Inc. All rights reserved. -->
+
+<!--
+    TruexAdRendererScene
+    This is a Bridge between the BrightScript main logic, and the SceneGraph TruexLibrary.
+-->
+<component name="TruexAdRendererScene" extends="Scene"> 
+  <script type="text/brightscript" uri="pkg:/components/TruexAdRendererScene.brs"/>
+  <script type="text/brightscript" uri="pkg:/source/GlobalUtils.brs"/>
+  <interface>
+    <!-- Write Only Settings -->
+    <field id="spinnerImageUri" type="string" value="pkg:/images/spinner.png"/>
+    <field id="truexInitSettings" type="assocarray"/>
+
+    <!-- Read Only Events -->
+    <field id="truexEvent" type="string" alwaysNotify="true"/>
+  </interface>
+
+	<children>
+    <ComponentLibrary id="TruexAdRendererLib" uri="https://ctv.truex.com/roku/v1/release/TruexAdRenderer-Roku-v1.pkg"/>
+
+    <!-- Loading Screen -->
+    <BusySpinner
+        id="busySpinner"
+        visible="false"
+        spinInterval="2"
+        control="start"/>
+    <Label
+        id="pleaseWait"
+        horizAlign="center"
+        vertAlign="center"
+        text="Please Wait"/>
+    <Label
+        id="loadingResources"
+        horizAlign="center"
+        vertAlign="center"
+        text="Loading resources..."/>
+  </children>
+</component>
