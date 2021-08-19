@@ -37,8 +37,8 @@ function room_main(object)
 			adPayload = {
 				"vast_config_url": "get.truex.com/74fca63c733f098340b0a70489035d683024440d/vast/config?asnw=&cpx_url=&dimension_2=0&flag=%2Bamcb%2Bemcr%2Bslcb%2Bvicb%2Baeti-exvt&fw_key_values=&metr=0&network_user_id=dc0fe879-8168-5069-b77d-82886f75afb1&prof=g_as3_truex&ptgt=a&pvrn=&resp=vmap1&slid=fw_truex&ssnw=&vdur=&vprn="
 			}
-			m.startTruexAd(adPayload)
-			if m.truexCredit then 
+			truexStarted = m.startTruexAd(adPayload)
+			if truexStarted and m.truexCredit then 
 				m.game_started = true
 			else 
 				m.message = "Press OK To Interact With The AD To Play"
@@ -66,7 +66,18 @@ function room_main(object)
 	' Params:
 	'   * eventType as String - contains the TruexAdRenderer event
 	'------------------------------------------------------------------------------------------------
-	object.startTruexAd = function(adPayload)
+	object.startTruexAd = function(adPayload) as Boolean
+		tmpAdConfigLocation = "tmp:/truexAdResponse.json"
+		tmpTruexAdRendererBrs = "tmp:/TruexAdRenderer-availability-v1.brs"
+		httpRequest = createObject("roUrlTransfer")
+		httpRequest.SetUrl("https://ctv.truex.com/roku/v1/release/TruexAdRenderer-availability-v1.brs")
+		httpRequest.SetCertificatesFile("common:/certs/ca-bundle.crt")
+		httpRequest.GetToFile(tmpTruexAdRendererBrs)
+		hasTruexAd = Run(tmpTruexAdRendererBrs, adPayload, tmpAdConfigLocation)
+
+		if (hasTruexAd <> true) then return false
+		adPayload["vast_config_url"] = tmpAdConfigLocation
+	
 		' Start the TruexAdRenderer SceneGraph Wrapper
 		screen = CreateObject("roSGScreen")
 		m.port = CreateObject("roMessagePort")
@@ -100,6 +111,7 @@ function room_main(object)
 				end if
 			end if
 		end while
+		return true
 	end function
 
 	
