@@ -1,2 +1,5 @@
 .out/
 .vscode/
+.rokuTarget
+staging
+dist
