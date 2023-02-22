@@ -14,6 +14,7 @@ ZIP_EXCLUDE = -x test\* -x *.sh -x makefile -x dist\* -x channel_components\* -x
 # BRANCH_NAME is set by Jenkins. When on a release branch, the following will evaluate to `rc`, while on a develop branch, it will be left alone (`develop`).
 RC_DEVELOP = $(shell echo $$BRANCH_NAME | sed "s/release.*/rc/")
 APPSROOT = .
+TARGET_VERSION = v${MAJOR}.${MINOR}.${BUILD_NUM}-${BUILD_HASH}
 include $(APPSROOT)/app.mk
 
 # The below `-hd` targets are normally used by CI to produce the HD / 720p version of Southback.
@@ -41,7 +42,6 @@ deploy: update_truex_lib_uri $(APPNAME)
 	echo $$MAJOR ;\
 	echo $$MINOR ;\
 	echo $$BUILD_NUM ;\
-	echo $$BUILD_HASH ;\	
-	echo $$TARGET_VERSION ;]
-	aws s3 cp dist/apps/${APPNAME}.zip s3://$$S3_BUCKET/roku/v${MAJOR}_${MINOR}/${RC_DEVELOP}/${APPNAME}-${RC_DEVELOP}-v${MAJOR}.${MINOR}.${BUILD_NUM}-${BUILD_HASH}.zip --acl public-read ;\
-
+	echo $$BUILD_HASH ;\
+	echo $$TARGET_VERSION ;\
+	# aws s3 cp dist/apps/${APPNAME}.zip s3://$$S3_BUCKET/roku/v${MAJOR}_${MINOR}/${RC_DEVELOP}/${APPNAME}-${RC_DEVELOP}-v${MAJOR}.${MINOR}.${BUILD_NUM}-${BUILD_HASH}.zip --acl public-read ;\
