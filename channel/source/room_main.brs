@@ -68,9 +68,12 @@ function room_main(object)
 	'------------------------------------------------------------------------------------------------
 	object.startTruexAd = function(adPayload) as Boolean
 		tmpAdConfigLocation = "tmp:/truexAdResponse.json"
-		tmpTruexAdRendererBrs = "tmp:/TruexAdRenderer-availability-v1.brs"
 		httpRequest = createObject("roUrlTransfer")
-		httpRequest.SetUrl("https://ctv.truex.com/roku/v1/release/TruexAdRenderer-availability-v1.brs")
+
+        ''' These can get updated by make deploy for test builds
+		tmpTruexAdRendererBrs = "tmp:/TruexAdRenderer-availability-v1.brs"
+		httpRequest.SetUrl("https://ctv.truex.com/roku/v1/release/TruexAdRenderer-availability-v1.brs"
+
 		httpRequest.SetCertificatesFile("common:/certs/ca-bundle.crt")
 		httpRequest.GetToFile(tmpTruexAdRendererBrs)
 		hasTruexAd = Run(tmpTruexAdRendererBrs, adPayload, tmpAdConfigLocation)
