@@ -43,5 +43,5 @@ deploy: update_truex_lib_uri $(APPNAME)
 	echo $$MINOR ;\
 	echo $$BUILD_NUM ;\
 	echo $$BUILD_HASH ;\
-	echo $$TARGET_VERSION ;\
+	echo ${TARGET_VERSION} ;\
 	# aws s3 cp dist/apps/${APPNAME}.zip s3://$$S3_BUCKET/roku/v${MAJOR}_${MINOR}/${RC_DEVELOP}/${APPNAME}-${RC_DEVELOP}-v${MAJOR}.${MINOR}.${BUILD_NUM}-${BUILD_HASH}.zip --acl public-read ;\
