@@ -31,12 +31,12 @@ install-hd: build-hd install
 
 update_truex_lib_uri:
 	sed -i '' 's/ComponentLibrary id=\"TruexAdRendererLib\" uri=\".*\"/ComponentLibrary id=\"TruexAdRendererLib\" uri=\"http:\/\/ctv.truex.com\/roku\/v${TARGET_VERSION}.pkg\"/' ./components/TruexAdRendererScene.xml ;\
-	sed -i '' 's/TruexAdRenderer-availability-v1.brs/TruexAdRenderer-availability-v1-v${TARGET_VERSION}.brs/' ./source/room_main.brs ;\
+	sed -i '' 's/TruexAdRenderer-availability-v1.brs/TruexAdRenderer-availability-v${TARGET_VERSION}.brs/' ./source/room_main.brs ;\
 
 # deploy `Truex_RokuExampleGame` side-load capable zip file to s3
 # append the major, minor then rc or develop components to the upload path.
 # Note: the MAJOR, MINOR, BUILD_NUM, BUILD_HASH env variables are set upstream by the Jenkins system (TAR's Jenkinsfile)
-deploy: update_truex_lib_uri
+deploy: update_truex_lib_uri	
 	S3_BUCKET=$$(grep s3_bucket ~/Library/Truex/Roku/target | sed 's/s3_bucket=//') ;\
 	echo $$S3_BUCKET ;\
 	echo $$MAJOR ;\
@@ -44,4 +44,4 @@ deploy: update_truex_lib_uri
 	echo $$BUILD_NUM ;\
 	echo $$BUILD_HASH ;\
 	echo ${TARGET_VERSION} ;\
-	# aws s3 cp dist/apps/${APPNAME}.zip s3://$$S3_BUCKET/roku/v${MAJOR}_${MINOR}/${RC_DEVELOP}/${APPNAME}-${RC_DEVELOP}-v${TARGET_VERSION}.zip --acl public-read ;\
+	aws s3 cp dist/apps/${APPNAME}.zip s3://$$S3_BUCKET/roku/v${MAJOR}_${MINOR}/${RC_DEVELOP}/${APPNAME}-${RC_DEVELOP}-v${TARGET_VERSION}.zip --acl public-read ;\
